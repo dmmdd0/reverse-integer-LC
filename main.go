@@ -2,7 +2,10 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
 
@@ -11,10 +14,26 @@ func main() {
 }
 
 func reverse(x int) int {
-	r := 0
-	for i := 1; i < x; i = i * 10 {
-		r += (x / i % 10) * i
-		fmt.Println(i, x/i%10, (x/i%10)*i, r)
+	xString := ""
+	sign := 1
+
+	if x <= -2147483648 || x >= 2147483647 {
+		return 0
 	}
-	return x
+
+	if x < 0 {
+		sign = -1
+		x = -x
+	}
+	for i := 1; i <= x; i = i * 10 {
+		xString += strconv.Itoa(x / i % 10)
+	}
+
+	res, _ := strconv.Atoi(xString)
+
+	if res <= -2147483648 || res >= 2147483647 {
+		return 0
+	}
+
+	return res * sign
 }
